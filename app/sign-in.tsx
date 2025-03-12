@@ -4,10 +4,21 @@ import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import icons from "@/constants/icons";
 const signIn = () => {
-  const handleLogin = () => {
-    // handle login with google
-    console.log("login with google");
+  const handleLogin = async () => {
+    const result = await login();
+    if (result) {
+      refetch();
+    } else {
+      Alert.alert("Error", "Failed to login");
+    }
   };
+
+
+
+
+
+
+
   return (
     <SafeAreaView  className="bg-white h-full ">
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
