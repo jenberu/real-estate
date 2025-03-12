@@ -3,7 +3,14 @@ import React from "react";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import icons from "@/constants/icons";
+import { login } from "@/lib/appwrite";
+import { useGlobalContext } from "@/lib/global-provider";
+import { Redirect } from "expo-router";
+import { Alert } from "react-native";
 const signIn = () => {
+  const { refetch, loading, isLogged } = useGlobalContext();
+  if (!loading && isLogged) return <Redirect href="/" />;
+
   const handleLogin = async () => {
     const result = await login();
     if (result) {
@@ -13,22 +20,15 @@ const signIn = () => {
     }
   };
 
-
-
-
-
-
-
   return (
-    <SafeAreaView  className="bg-white h-full ">
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-
+    <SafeAreaView className="bg-white h-full ">
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Image
           source={images.onboarding}
           resizeMode="contain"
           className="w-full h-[400px]"
         />
-     
+
         <View className="px-10">
           <Text className="text-base text-center uppercase font-rubik text-black-200 ">
             {" "}
@@ -44,21 +44,20 @@ const signIn = () => {
           </Text>
         </View>
         <TouchableOpacity
-          
-            onPress={handleLogin}
-            className="bg-white shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
-          >
-            <View className="flex flex-row items-center justify-center">
+          onPress={handleLogin}
+          className="bg-white shadow-md shadow-zinc-300 rounded-full w-full py-4 mt-5"
+        >
+          <View className="flex flex-row items-center justify-center">
             <Image
-                source={icons.google}
-                className="w-5 h-5 "
-                resizeMode="contain"
-              />
-              <Text className="text-lg font-rubik-medium text-black-300 ml-2">
-                Continue with Google
-              </Text>
-            </View>
-          </TouchableOpacity>
+              source={icons.google}
+              className="w-5 h-5 "
+              resizeMode="contain"
+            />
+            <Text className="text-lg font-rubik-medium text-black-300 ml-2">
+              Continue with Google
+            </Text>
+          </View>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
