@@ -2,7 +2,7 @@ import { Alert } from "react-native";
 import { useEffect, useState, useCallback } from "react";
 
 interface UseAppwriteOptions<T, P extends Record<string, string | number>> {
-  fn: (params: P) => Promise<T>;
+  fn: (params: P) => Promise<T>;// define function that take parms as object and  return a promise
   params?: P;
   skip?: boolean;
 }
