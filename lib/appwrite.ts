@@ -1,6 +1,6 @@
 import { Avatars, Client, Account, OAuthProvider } from "react-native-appwrite";
 import * as Linking from "expo-linking";
-import {openAuthSessionAsync} from "expo-web-browser";
+import { openAuthSessionAsync } from "expo-web-browser";
 export const config = {
   platform: "com.dev.restate",
   endpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT,
@@ -45,27 +45,27 @@ export async function login() {
 }
 
 export async function logout() {
-    try {
-        await account.deleteSession("current");
-        return true;
-    } catch (error) {
-        console.error("Error logout:", error);
-        return false;
-    }
+  try {
+    await account.deleteSession("current");
+    return true;
+  } catch (error) {
+    console.error("Error logout:", error);
+    return false;
+  }
 }
 
 export async function getUser() {
-    try {
-        const response = await account.get();
-        if (response.$id) {
-            const userAvatar=avater.getInitials(response.name)
-            return {
-                ...response,avater:userAvatar.toString()
-            };
-                
-        }
-    } catch (error) {
-        console.error("Error getUser:", error);
-        return null;
+  try {
+    const response = await account.get();
+    if (response.$id) {
+      const userAvatar = avater.getInitials(response.name);
+      return {
+        ...response,
+        avater: userAvatar.toString(),
+      };
     }
+  } catch (error) {
+    console.error("Error getUser:", error);
+    return null;
+  }
 }
