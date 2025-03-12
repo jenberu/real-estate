@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, Pressable } from "react-native";
 import { Link } from "expo-router";
 export default function Index() {
   return (
@@ -15,7 +15,7 @@ export default function Index() {
       </Text>{" "}
       <View className="flex-col gap-3">
         <Link className="bg-green-600 p-2 " href="/sign-in">
-          <Text> Sign In</Text>
+            <Text> Sign In</Text>
         </Link>
         <Link href="/explore">
           <Text>Explore</Text>
