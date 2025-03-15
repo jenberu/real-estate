@@ -22,7 +22,7 @@ const Home = () => {
   const { user } = useGlobalContext();
 
   const params = useLocalSearchParams<{ query?: string; filter?: string }>();
-
+  // destructuring object assign the value to new varaibles 
   const { data: latestProperties, loading: latestPropertiesLoading } =
     useAppwrite({
       fn: getLatestProperties,
@@ -51,15 +51,17 @@ const Home = () => {
   }, [params.filter, params.query]);
 
   const handleCardPress = (id: string) => router.push(`/properties/${id}`);
+  // function to render the items in flatList data
+  const renderItem = ({ item }:{item:any}) => (
+    <Card item={item} onPress={() => handleCardPress(item.$id)} />
+  )
 
   return (
     <SafeAreaView className="h-full bg-white">
       <FlatList
         data={properties}
         numColumns={2}
-        renderItem={({ item }) => (
-          <Card item={item} onPress={() => handleCardPress(item.$id)} />
-        )}
+        renderItem={renderItem}
         keyExtractor={(item) => item.$id}
         contentContainerClassName="pb-32"
         columnWrapperClassName="flex gap-5 px-5"
